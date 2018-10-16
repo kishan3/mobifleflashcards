@@ -38,28 +38,13 @@ export const getDecks = () => {
 }
 
 
-export const saveDeckTitle = (deckTitle) => {
+export const saveDeckTitle = (title) => {
     return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
-        [deckTitle]: {
-            deckTitle,
+        [title]: {
+            title,
             questions: [],
         }
     }))
-}
-
-
-export const saveDeck = async (deckTitle) => {
-    try {
-        const deck = {
-            title: deckTitle,
-            questions: [],
-        }
-        await AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(deck))
-        return deck
-    } catch (err) {
-        console.error(err)
-        alert('There was an error saving a deck.')
-    }
 }
 
 
@@ -67,7 +52,6 @@ export async function getDeck(key) {
     try {
         const retrievedItems = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
         const items = JSON.parse(retrievedItems)
-        console.warn("items: ", items[key])
         return items[key]
     } catch (error) {
         console.log(error.message);

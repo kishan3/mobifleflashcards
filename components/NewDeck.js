@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
-import {KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
-import {white, gray, black, purple, orange, lightPurp} from '../utils/colors'
-import {saveDeckTitle} from '../utils/api'
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
+import {black, gray, lightPurp, white} from '../utils/colors'
+import {addDeck} from '../actions'
 import {connect} from 'react-redux'
-import {NavigationActions} from 'react-navigation'
-import {saveDeck} from '../utils/api'
 
 
 class NewDeck extends Component {
@@ -22,31 +20,26 @@ class NewDeck extends Component {
         this.props.navigation.navigate('DeckList')
     }
 
-    handleSubmit() {
+    handleSubmit = () => {
         const {title} = this.state
-        const {navigation} = this.props
         this.props.addDeck(title)
             .then(() => {
                 this.setState({
                     title: '',
                 })
             })
-        navigation.navigate('DeckList')
-        // const savedDeck = await saveDeck(title)
-        // const newDeck = savedDeck
-        // this.setState({title: ''})
-        // this.toHome()
+        this.toHome()
     }
 
     render() {
-        const {deckTitle} = this.state
+        const {title} = this.state
 
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <Text style={styles.titleQuestionText}>What is the title of your deck?</Text>
                 <TextInput
                     style={styles.textInput}
-                    value={deckTitle}
+                    value={title}
                     placeholder="Deck Title"
                     onChangeText={this.handleTextChange}
                 />
