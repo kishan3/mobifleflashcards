@@ -1,4 +1,6 @@
-import {AsyncStorage} from 'react-native'
+import {
+    AsyncStorage
+} from 'react-native'
 
 export const FLASHCARDS_STORAGE_KEY = 'Flashcards:app'
 
@@ -6,9 +8,9 @@ export const initData = {
     React: {
         title: 'React',
         questions: [{
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces'
-        },
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
             {
                 question: 'Where do you make Ajax requests in React?',
                 answer: 'The componentDidMount lifecycle event'
@@ -60,6 +62,22 @@ export async function getDeck(key) {
 }
 
 
-export function addCardToDeck() {
-
+export const addCardToDeck = (title, card) => {
+    return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+        .then((results) => {
+            return JSON.parse(results)[title]
+        })
+        .then(data => {
+            const {question, answer} = card
+            const questions = data.questions.concat({
+                question,
+                answer
+            })
+            AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
+                [title]: {
+                    title,
+                    questions
+                }
+            }))
+        })
 }

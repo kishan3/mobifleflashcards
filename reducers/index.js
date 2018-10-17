@@ -1,6 +1,7 @@
 import {
     ADD_DECK,
-    GET_DECKS
+    GET_DECKS,
+    ADD_CARD
 } from '../actions/index'
 
 
@@ -17,6 +18,10 @@ function decks(state = [], action) {
                     questions: []
                 }
             }
+        case ADD_CARD:
+            const state_ = {...state}
+            state_[action.title].questions.push(action.card)
+            return state_
         default:
             return state
     }
