@@ -1,6 +1,6 @@
 import React from 'react';
-import {StatusBar,Text, StyleSheet, View} from 'react-native'
-import {createMaterialTopTabNavigator, TabNavigator, createStackNavigator} from 'react-navigation'
+import {StatusBar, StyleSheet, View} from 'react-native'
+import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import DeckList from './components/DeckList'
 import {applyMiddleware, createStore} from 'redux'
 import {Provider} from 'react-redux'
@@ -9,9 +9,11 @@ import {FontAwesome, Ionicons} from 'react-native-vector-icons'
 import DeckDetail from './components/DeckDetail'
 import NewCard from './components/NewCard'
 import NewDeck from './components/NewDeck'
+import Quiz from './components/Quiz'
+import Score from './components/Score'
 import {Constants} from 'expo'
 import thunk from 'redux-thunk'
-import {black, orange, purple, white} from './utils/colors'
+import {purple, white} from './utils/colors'
 
 function CardAppStatusBar({backgroundColor, ...props}) {
     return (
@@ -75,6 +77,24 @@ const MainNavigator = createStackNavigator({
                 backgroundColor: purple,
             }
         }
+    },
+    Quiz: {
+        screen: Quiz,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
+    },
+    Score: {
+        screen: Score,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
     }
 })
 
@@ -84,7 +104,7 @@ export default class App extends React.Component {
     render() {
         return (
             <Provider store={createStore(reducer, applyMiddleware(thunk))}>
-                <View style={{flex: 1}}>
+                <View style={styles.container}>
                     <CardAppStatusBar backgroundColor='blue' barStyle='light-content'/>
                     <MainNavigator />
                 </View>

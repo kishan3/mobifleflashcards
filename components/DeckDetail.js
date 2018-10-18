@@ -12,7 +12,9 @@ export default function DeckDetail({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate('NewCard', {deck})} style={styles.addCardBtn}>
                 <Text style={styles.addCardBtnText}>Add New Card</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Quiz')} style={styles.startQuizBtn}>
+            <TouchableOpacity 
+                disabled={deck.questions.length === 0}
+                onPress={() => navigation.navigate('Quiz', {deck: deck, questionIndex: 0, correct: 0})} style={styles.startQuizBtn}>
                 <Text style={styles.startQuizBtnText}>Start Quiz</Text>
             </TouchableOpacity>
         </View>
