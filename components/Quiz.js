@@ -93,8 +93,12 @@ class Quiz extends Component {
         }), () => this.nextQuestion())
     }
     render() {
+        const {deck, questionIndex} = this.props.navigation.state.params
         return (
             <View style={styles.container}>
+                <View>
+                    <Text style={styles.caption}>Questions remaining {deck.questions.length - questionIndex}</Text>
+                </View>
                 <View className="text" style={styles.subcontainer}>
                     <Text style={styles.heading}>{this.questionOrAnswer()}</Text>
                     <Text style={styles.caption} onPress={this.showAnswer}>Show Answer</Text>
