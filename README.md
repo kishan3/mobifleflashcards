@@ -7,3 +7,9 @@ This application allows users to practice programming languages questions using 
 `yarn install`
 
 `yarn start`
+
+
+## Supported Platforms
+
+`iOS`
+`Android`

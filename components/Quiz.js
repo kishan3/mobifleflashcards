@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, TouchableOpacity,StyleSheet} from 'react-native'
 import {gray, lightPurp, white} from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class Quiz extends Component {
     state = {
@@ -70,6 +71,9 @@ class Quiz extends Component {
         const {deck, questionIndex} = this.props.navigation.state.params
         const {isLastQuestion, correct} = this.state
         if (isLastQuestion) {
+            clearLocalNotification()
+            .then(setLocalNotification())
+
             this.props.navigation.navigate('Score', {
                 deck,
                 correct
@@ -78,6 +82,7 @@ class Quiz extends Component {
             this.props.navigation.navigate('Quiz', {
                 deck,
                 questionIndex: questionIndex + 1,
+                correct: correct,
             })
         }
     }

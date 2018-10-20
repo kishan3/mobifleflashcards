@@ -14,6 +14,8 @@ import Score from './components/Score'
 import {Constants} from 'expo'
 import thunk from 'redux-thunk'
 import {purple, white} from './utils/colors'
+import { setLocalNotification } from './utils/helpers'
+
 
 function CardAppStatusBar({backgroundColor, ...props}) {
     return (
@@ -100,7 +102,9 @@ const MainNavigator = createStackNavigator({
 
 
 export default class App extends React.Component {
-
+    componentDidMount() {
+        setLocalNotification()
+    }
     render() {
         return (
             <Provider store={createStore(reducer, applyMiddleware(thunk))}>
